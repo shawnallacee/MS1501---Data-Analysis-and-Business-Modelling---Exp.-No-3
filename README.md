@@ -44,63 +44,63 @@ A sample business dataset representing the relationship between **Advertising Ex
 | | `plt.title()`, `plt.xlabel()`, `plt.ylabel()`, `plt.show()` | Configure and display the regression plot |
 
 ##  Program & Output
-\# Import Required Python Libraries
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-from sklearn.linear_model import LinearRegression
+\# Import Required Python Libraries    
+import numpy as np    
+import pandas as pd    
+import matplotlib.pyplot as plt    
+from sklearn.linear_model import LinearRegression    
 
-\# Create and Load the Dataset into a Pandas DataFrame
-data = {
-    'Advertising': [18, 22, 25, 30, 35, 40, 45, 50, 55, 60],
-    'Sales': [12, 18, 20, 24, 28, 35, 38, 40, 42, 45]
-}
-df = pd.DataFrame(data)
+\# Create and Load the Dataset into a Pandas DataFrame    
+data = {    
+    'Advertising': [18, 22, 25, 30, 35, 40, 45, 50, 55, 60],        
+    'Sales': [12, 18, 20, 24, 28, 35, 38, 40, 42, 45]        
+}    
+df = pd.DataFrame(data)    
 
-\# Display the Dataset
-print("--- 1. Dataset Loaded Successfully ---")
-print(df)
+\# Display the Dataset    
+print("--- 1. Dataset Loaded Successfully ---")    
+print(df)    
 
-\# Select Independent (X) and Dependent (Y) variables and reshape X
-X = df[['Advertising']]  # Independent variable (2D array)
-y = df['Sales']          # Dependent variable
+\# Select Independent (X) and Dependent (Y) variables and reshape X    
+X = df[['Advertising']]     
+y = df['Sales']             
+    
+\# Initialize, Build, and Fit the Linear Regression Model    
+model = LinearRegression()    
+model.fit(X, y)        
 
-\# Initialize, Build, and Fit the Linear Regression Model
-model = LinearRegression()
-model.fit(X, y)
+\# Retrieve Intercept and Slope    
+intercept = model.intercept_    
+slope = model.coef_[0]    
 
-# Retrieve Intercept and Slope
-intercept = model.intercept_
-slope = model.coef_[0]
+print("\n--- 2. Model Parameters ---")    
+print(f"Intercept (a): {intercept:.4f}")    
+print(f"Slope (b): {slope:.4f}")    
+print(f"Regression Equation: Sales = {slope:.4f} * Advertising + {intercept:.4f}")    
 
-print("\n--- 2. Model Parameters ---")
-print(f"Intercept (a): {intercept:.4f}")
-print(f"Slope (b): {slope:.4f}")
-print(f"Regression Equation: Sales = {slope:.4f} * Advertising + {intercept:.4f}")
+\# Predict Y values and Evaluate Performance (R^2 Score)    
+y_pred = model.predict(X)    
+r2 = model.score(X, y)    
 
-\# Predict Y values and Evaluate Performance (R^2 Score)
-y_pred = model.predict(X)
-r2 = model.score(X, y)
+print("\n--- 3. Model Performance ---")    
+print(f"R-squared (R^2) Score: {r2:.4f}")    
 
-print("\n--- 3. Model Performance ---")
-print(f"R-squared (R^2) Score: {r2:.4f}")
+\# Predict sales for a new advertising budget (e.g., 50 Lakhs)    
+new_budget = np.array([[50]])    
+predicted_sales = model.predict(new_budget)    
+print(f"\nPredicted Sales for an Advertising budget of 50 Lakhs: {predicted_sales[0]:.2f} Crores")    
 
-# Predict sales for a new advertising budget (e.g., 50 Lakhs)
-new_budget = np.array([[50]])
-predicted_sales = model.predict(new_budget)
-print(f"\nPredicted Sales for an Advertising budget of 50 Lakhs: {predicted_sales[0]:.2f} Crores")
-
-\# Plotting Actual Data Points and the Fitted Regression Line
-plt.figure(figsize=(8, 5))
-plt.scatter(X, y, color='blue', label='Actual Data Points', s=70)
-plt.plot(X, y_pred, color='red', linewidth=2, label='Regression Line')
-plt.title('Simple Linear Regression: Advertising Expenditure vs Sales Revenue')
-plt.xlabel('Advertising Expenditure (Lakhs)')
-plt.ylabel('Sales Revenue (Crores)')
-plt.legend()
-plt.grid(True, linestyle='--', alpha=0.6)
-plt.tight_layout()
-plt.show()
+\# Plotting Actual Data Points and the Fitted Regression Line    
+plt.figure(figsize=(8, 5))    
+plt.scatter(X, y, color='blue', label='Actual Data Points', s=70)    
+plt.plot(X, y_pred, color='red', linewidth=2, label='Regression Line')        
+plt.title('Simple Linear Regression: Advertising Expenditure vs Sales Revenue')    
+plt.xlabel('Advertising Expenditure (Lakhs)')    
+plt.ylabel('Sales Revenue (Crores)')    
+plt.legend()    
+plt.grid(True, linestyle='--', alpha=0.6)    
+plt.tight_layout()    
+plt.show()    
 <img width="1097" height="598" alt="image" src="https://github.com/user-attachments/assets/54c3bf2c-b94f-45b3-ab45-26cb1cbf61ad" />
 
 ##  Result
